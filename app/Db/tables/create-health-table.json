@@ -1,0 +1,27 @@
+{
+  "TableName": "HealthTable",
+  "KeySchema": [
+    {
+      "AttributeName": "nric",
+      "KeyType": "HASH"
+    },
+    {
+      "AttributeName": "policyFormNumber",
+      "KeyType": "RANGE"
+    }
+  ],
+  "AttributeDefinitions": [
+    {
+      "AttributeName": "nric",
+      "AttributeType": "S"
+    },
+    {
+      "AttributeName": "policyFormNumber",
+      "AttributeType": "S"
+    }
+  ],
+  "ProvisionedThroughput": {
+    "ReadCapacityUnits": 10,
+    "WriteCapacityUnits": 10
+  }
+}

@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile-local
+    ports:
+      - "3000:3000"
+    environment:
+      - DB_PORT=8000
+      - NODE_PORT=3000
+      - NODE_ENV=development
+      - NODE_HOST=0.0.0.0
+      - AWS_ACCESS_KEY_ID=test
+      - AWS_SECRET_ACCESS_KEY=test
+    volumes:
+      - .:/srv/
+    command: bash -c "npm run migrate && npm start"
+    depends_on:
+      - dynamo
+    links:
+      - dynamo
+
+  dynamo:
+    image: 'amazon/dynamodb-local'
+    restart: always
+    ports:
+      - "8000:8000"
+    volumes:
+      # For connecting to local db data
+      - ./db-data:/var/lib/dynamo/data
+
+volumes:
+  db-data:

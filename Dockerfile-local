@@ -1,0 +1,16 @@
+FROM node:8.0.0
+
+# Create app directory
+
+ENV APP_HOME /srv
+
+WORKDIR $APP_HOME
+
+COPY package.json $APP_HOME
+#COPY ./node_modules $APP_HOME
+
+RUN npm install --loglevel=warn
+
+#COPY . $APP_HOME
+
+CMD ["npm", "start"]
